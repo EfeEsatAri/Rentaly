@@ -1,0 +1,100 @@
+﻿@{
+    bool isReset = Context.Request.Query["reset"] == "true";
+}
+
+<section id="subheader" class="jarallax text-light">
+    <img src="~/rentaly/images/background/2.jpg" class="jarallax-img" alt="">
+    <div class="center-y relative text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>Araç Filomuz</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="section-cars">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <form method="get" action="/_Layout/CarList" autocomplete="off">
+
+                    <div class="item_filter_group">
+                        <h4>Marka</h4>
+                        <div class="de_form">
+                            <select name="brandId" class="form-control">
+                                <option value="">Tüm Markalar</option>
+                                @if (ViewBag.Brands != null)
+                                {
+                                    foreach (var brand in ViewBag.Brands)
+                                    {
+                                        // Burası ana sayfadan gelen brandId ile listedekini eşleştirir
+                                        bool isSelected = ViewBag.SelectedBrand != null && (int)ViewBag.SelectedBrand == brand.BrandId;
+                                        <option value="@brand.BrandId" selected="@(isSelected ? "selected" : null)">
+                                            @brand.BrandName
+                                        </option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="item_filter_group">
+                        <h4>Şanzıman</h4>
+                        <div class="de_form">
+                            <select name="transmission" class="form-control">
+                                <option value="">Tüm Şanzımanlar</option>
+                                @{
+                                    // Ana sayfadan gelen transmission değerini kontrol ediyoruz
+                                    bool isManuel = ViewBag.SelectedTransmission != null && (bool)ViewBag.SelectedTransmission == false;
+                                    bool isAuto = ViewBag.SelectedTransmission != null && (bool)ViewBag.SelectedTransmission == true;
+                                }
+                                <option value="false" selected="@(isManuel ? "selected" : null)">Manuel</option>
+                                <option value="true" selected="@(isAuto ? "selected" : null)">Otomatik</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="item_filter_group">
+                        <h4>Yakıt Tipi</h4>
+                        <div class="de_form">
+                            <select name="fuelType" class="form-control">
+                                <option value="">Tüm Yakıt Tipleri</option>
+                                @foreach (var fuel in new[] { "Benzin", "Dizel", "Elektrikli", "Hibrit" })
+                                {
+                                    bool isFuelSelected = ViewBag.SelectedFuel != null && ViewBag.SelectedFuel.ToString() == fuel;
+                                    <option value="@fuel" selected="@(isFuelSelected ? "selected" : null)">
+                                        @fuel
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="item_filter_group">
+                        <h4>Fiyat Aralığı (Günlük)</h4>
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <input type="number" name="minPrice" value="@ViewBag.MinPrice" class="form-control" placeholder="Min ₺" />
+                            </div>
+                            <div class="col-6">
+                                <input type="number" name="maxPrice" value="@ViewBag.MaxPrice" class="form-control" placeholder="Max ₺" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-main btn-fullwidth" style="margin-top:20px;">Filtrele</button>
+                    <a href="/_Layout/CarList" class="btn-main btn-fullwidth" style="background:#333; text-align:center; margin-top:5px; display:block; color:white;">Temizle</a>
+                </form>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="row">
+                    @await Component.InvokeAsync("_DefaultCarListComponentPartial")
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

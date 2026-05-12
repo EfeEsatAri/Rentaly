@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RentCar Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+@await RenderSectionAsync("Styles",required: false)
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <a href="/Admin/Dashboard/Index" class="sidebar-logo">
+            <div class="logo-icon">
+                <img src="~/efe foto.jpeg" alt="Efe Esat Arı" class="sidebar-profile-img">
+            </div>
+            <div class="logo-text">
+                <strong>Efe Esat Arı</strong>
+                <span>Site Yöneticisi</span>
+            </div>
+        </a>
+
+        <nav class="sidebar-nav" id="sidebarNav">
+            <div class="menu-label">İşlemler</div>
+
+            <a href="/Dashboard/Index/" class="nav-link">
+                <span class="nav-icon"><i class="fa-solid fa-gauge-high"></i></span>
+                <span class="link-text">DashBoard</span>
+            </a>
+
+            <a href="/Branch/BranchList/" class="nav-link">
+                <span class="nav-icon"><i class="fa-solid fa-map-location-dot"></i></span>
+                <span class="link-text">Şube Yönetimi</span>
+            </a>
+
+            <a href="/Brand/BrandList/" class="nav-link">
+                <span class="nav-icon"><i class="fa-solid fa-copyright"></i></span>
+                <span class="link-text">Marka Yönetimi</span>
+            </a>
+
+            <a href="/Car/CarList/" class="nav-link">
+                <span class="nav-icon"><i class="fa-solid fa-car"></i></span>
+                <span class="link-text">Araba Yönetimi</span>
+            </a>
+
+            <a href="/CarModel/CarModelList/" class="nav-link">
+                <span class="nav-icon"><i class="fa-solid fa-car-side"></i></span>
+                <span class="link-text">Araba Modeli Yönetimi</span>
+            </a>
+
+            <a href="/Comment/CommentList/" class="nav-link">
+                <span class="nav-icon"><i class="fa-solid fa-comments"></i></span>
+                <span class="link-text">Yorum Yönetimi</span>
+            </a>
+
+            <a href="/Features/FeaturesList/" class="nav-link">
+                <span class="nav-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                <span class="link-text">Özellikler Yönetimi</span>
+            </a>
+
+            <a href="/Footer/FooterList/" class="nav-link">
+                <span class="nav-icon"><i class="fa-solid fa-window-maximize"></i></span>
+                <span class="link-text">Alt Kısım Yönetimi</span>
+            </a>
+
+            <a href="/Questions/QuestionsList/" class="nav-link">
+                <span class="nav-icon"><i class="fa-solid fa-circle-question"></i></span>
+                <span class="link-text">Soru Yönetimi</span>
+            </a>
+
+            <a href="/Reservation/ReservationList/" class="nav-link">
+                <span class="nav-icon"><i class="fa-solid fa-calendar-check"></i></span>
+                <span class="link-text">Rezervasyon Yönetimi</span>
+            </a>
+
+            <a href="/Step/StepList/" class="nav-link">
+                <span class="nav-icon"><i class="fa-solid fa-list-ol"></i></span>
+                <span class="link-text">Adım Yönetimi</span>
+            </a>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebarMobile()"></div>
+
+    <div class="main-wrapper" id="mainWrapper">
+
+        <nav class="navbar-top" id="navbarTop">
+            <button class="toggle-btn" id="toggleBtn" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="navbar-breadcrumb d-none d-sm-block">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/_Layout/Index/">Siteye Git</a></li>
+
+                </ol>
+            </div>
+@*             <div class="navbar-actions ms-auto">
+                <div class="dropdown notif-dropdown">
+                    <button class="action-btn" data-bs-toggle="dropdown">
+                        <i class="fa-regular fa-bell"></i><span class="badge-dot"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <div class="notif-header"><h6>Bildirimler</h6><a href="#">Tümünü Gör</a></div>
+                        <div class="notif-list">
+                            <div class="notif-item"><div class="notif-icon" style="background:#e8efff;color:#1a56db;"><i class="fa-solid fa-calendar-check"></i></div><div class="notif-text"><p>Yeni rezervasyon talebi alındı</p><small>2 dakika önce</small></div></div>
+                            <div class="notif-item"><div class="notif-icon" style="background:#f0fdf4;color:#10b981;"><i class="fa-solid fa-credit-card"></i></div><div class="notif-text"><p>₺4.200 ödeme alındı</p><small>3 saat önce</small></div></div>
+                        </div>
+                    </ul>
+                </div>
+                <button class="action-btn"><i class="fa-regular fa-envelope"></i></button>
+                <div class="navbar-divider d-none d-sm-block"></div>
+                <div class="dropdown admin-dropdown">
+                    <a href="#" class="dropdown-toggle d-flex align-items-center gap-2" data-bs-toggle="dropdown">
+                        <img src="https://ui-avatars.com/api/?name=Admin+User&background=1a56db&color=fff&size=80" alt="Admin">
+                        <div class="admin-info d-none d-lg-flex">
+                            <span class="admin-name">Admin User</span><span class="admin-role">Süper Yönetici</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down" style="font-size:11px;color:var(--text-muted);"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user"></i> Profil</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Ayarlar</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a></li>
+                    </ul>
+                </div>
+            </div> *@
+        </nav>
+
+        <main class="page-content">
+            @RenderBody()
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-text">© 2026 <span>RentCar</span> Yönetim Paneli — Tüm Hakları Saklıdır</div>
+            <div class="footer-links">
+                <a href="#">Gizlilik Politikası</a><a href="#">Kullanım Koşulları</a><a href="#">Destek</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/script.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+<style>
+    /* Logo alanındaki ikon kutusunu düzenliyoruz */
+    .logo-icon {
+        width: 45px; /* Kutunun genişliği */
+        height: 45px; /* Kutunun yüksekliği */
+        display: flex; /* İçindeki resmi ortalamak için */
+        align-items: center;
+        justify-content: center;
+        overflow: hidden; /* Taşmaları engeller (Yuvarlak pencere etkisi) */
+        border-radius: 50%; /* Kutuyu tam yuvarlak yapar */
+        background-color: #fff; /* Fotoğraf yüklenene kadar beyaz zemin */
+        border: 2px solid rgba(255, 255, 255, 0.2); /* Şık bir çerçeve */
+    }
+
+    /* Resmin kendisini kutuya göre ölçeklendiriyoruz */
+    .sidebar-profile-img {
+        width: 100%; /* Kutunun genişliğine yayıl */
+        height: 100%; /* Kutunun yüksekliğine yayıl */
+        object-fit: cover; /* Resmi ezmeden, pencereyi dolduracak şekilde kırp */
+        display: block;
+    }
+
+    /* Yazıların resmin yanında düzgün durması için */
+    .sidebar-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px; /* Resim ile yazı arasındaki boşluk */
+        padding: 10px 15px;
+    }
+</style>

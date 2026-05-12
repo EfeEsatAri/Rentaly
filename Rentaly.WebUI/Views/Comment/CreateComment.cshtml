@@ -1,0 +1,42 @@
+﻿@model CreateCommentDto
+@{
+    ViewData["Title"] = "Yeni Yorum";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="card shadow-sm mx-auto" style="max-width: 800px;">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Yeni Müşteri Yorumu Oluştur</h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Ad Soyad</label>
+                        <input type="text" asp-for="NameSurname" class="form-control" placeholder="Müşteri adı..." />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Başlık / Mevki</label>
+                        <input type="text" asp-for="Title" class="form-control" placeholder="Örn: CEO, Yazılımcı vb." />
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Profil Fotoğrafı URL</label>
+                    <input type="text" asp-for="ImageUrl" class="form-control" placeholder="https://..." />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Yorum Mesajı</label>
+                    <textarea asp-for="Description" rows="4" class="form-control" placeholder="Müşteri ne dedi?"></textarea>
+                </div>
+
+                <div class="text-end">
+                    <a href="/Comment/CommentList" class="btn btn-light border">İptal</a>
+                    <button type="submit" class="btn btn-success px-5">Yayınla</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

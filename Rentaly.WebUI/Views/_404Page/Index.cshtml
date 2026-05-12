@@ -1,0 +1,124 @@
+﻿@model dynamic
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <title>Rentaly - Sayfa Bulunamadı</title>
+    <link rel="icon" href="~/rentaly/images/icon.png" type="image/gif" sizes="16x16">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <link href="~/rentaly/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/rentaly/css/plugins.css" rel="stylesheet" type="text/css">
+    <link href="~/rentaly/css/style.css" rel="stylesheet" type="text/css">
+    <link id="colors" href="~/rentaly/css/colors/scheme-01.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        /* Tasarımın Kalbi: Arka planı tamamen aydınlık yapıyoruz */
+        .jarallax-img {
+            /*brightness(100%) resmi orijinal parlaklığında bırakır, contrast(100%) normal kontrasttır.*/
+            filter: brightness(100%) contrast(100%) !important;
+        }
+
+        /* 404 Başlığı için daha keskin ve modern bir stil */
+        .error-code {
+            font-size: 180px;
+            font-weight: 900;
+            color: #ffffff; /* Bembeyaz yapıldı */
+            line-height: 1;
+            margin-bottom: 0;
+            letter-spacing: -5px; /* Daha modern bir dokunuş */
+        }
+
+        .error-text {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff; /* Bembeyaz yapıldı */
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: -15px;
+        }
+
+        /* Ana metinleri (H1 ve P) pürüzsüz ve bembeyaz yapmak için gölgeleri sildik */
+        h1, h1 span, p, p.lead {
+            color: #ffffff !important; /* Bembeyaz yapıldı */
+            text-shadow: none !important; /* Gölgeler silindi */
+        }
+
+        h1 {
+            font-size: 56px;
+            font-weight: 800;
+        }
+
+        p.lead {
+            font-size: 18px;
+            opacity: 0.9; /* Hafif bir okuma pürüzsüzlüğü */
+        }
+
+        /* "Karıştı" kelimesindeki turuncu rengi sadece burada koruyoruz */
+        .id-color {
+            color: var(--primary) !important;
+        }
+
+        /* Butona daha aydınlık bir parlama efekti */
+        .btn-main {
+            box-shadow: 0px 5px 25px rgba(255, 150, 0, 0.5);
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--primary); /* Daha belirgin bir sınır */
+        }
+
+            .btn-main:hover {
+                transform: translateY(-3px);
+                box-shadow: 0px 10px 30px rgba(255, 150, 0, 0.8);
+                background-color: #ffffff; /* Hoverda aydınlık bir efekt */
+                color: var(--primary) !important;
+            }
+
+        /* 404 Bloğunun genel pürüzsüzlüğü için */
+        .error-container {
+            position: relative;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body class="dark-scheme">
+    <div id="wrapper">
+        <div id="de-preloader"></div>
+
+        <div class="no-bottom no-top" id="content">
+            <section id="section-hero" class="jarallax text-light pt50 pb50 vertical-center" style="height: 100vh;">
+                <img src="~/rentaly/images/background/11.jpg" class="jarallax-img" alt="">
+
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 text-center text-lg-start content-box">
+                            <h1 class="mb-3">Eyvah! Yolunuz <br><span class="id-color">Karıştı...</span></h1>
+                            <p class="lead mb-4">Aradığınız sayfaya şu anda ulaşılamıyor. <br>Muhtemelen yanlış bir vites attık!</p>
+                            <a href="/_Layout/Index/" class="btn-main">Ana Sayfaya Dön</a>
+                        </div>
+
+                        <div class="col-lg-6 text-center">
+                            <div class="error-container">
+                                <h1 class="error-code">404</h1>
+                                <div class="error-text">Aradağınız Sayfayı Bulamadık</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="~/rentaly/js/plugins.js"></script>
+    <script src="~/rentaly/js/designesia.js"></script>
+</body>
+</html>

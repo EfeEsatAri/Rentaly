@@ -1,0 +1,251 @@
+﻿@model Rentaly.EntityLayer.Entities.Car
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="tr">
+
+@await Component.InvokeAsync("_DefaultHeadComponentPartial")
+<link href="~/rentaly/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/rentaly/css/style.css" rel="stylesheet" type="text/css" />
+
+<style>
+    /* Üst başlık (Banner) yüksekliği */
+    #subheader {
+        height: 350px;
+        min-height: 350px;
+    }
+    /* Ana araç resmi boyutu ve hizalaması */
+    .de-image-with-title img {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    /* Fiyat Kartı ve Buton */
+    .de-price {
+        background-color: #f8f9fa;
+        border: 1px solid #eee;
+    }
+
+    .btn-main {
+        background-color: #28a745; /* İlk fotodaki yeşil */
+        color: white;
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        transition: 0.3s;
+        text-align: center;
+        display: block;
+    }
+
+        .btn-main:hover {
+            background-color: #218838;
+            color: white;
+        }
+    /* Teknik Detaylar İkon Rengi */
+    .text-primary {
+        color: #28a745 !important;
+    }
+</style>
+
+<body>
+    <div id="wrapper">
+        <div id="de-preloader"></div>
+
+        @await Component.InvokeAsync("_DefaultHeaderComponentPartial")
+
+        <div class="no-bottom no-top zebra" id="content">
+            <div id="top"></div>
+
+            <section id="subheader" class="jarallax text-light">
+                <img src="~/rentaly/images/background/subheader.jpg" class="jarallax-img" alt="">
+                <div class="center-y relative text-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h1>@Model.Brand.BrandName @Model.CarModel.ModelName</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-car-details">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="de-image-with-title">
+                                <img src="@Model.ImageUrl" alt="@Model.PlateNumber" />
+                            </div>
+
+                            <div class="spacer-30"></div>
+
+                            <div class="de-content-block">
+                                <h3>Araç Özellikleri & Açıklama</h3>
+                                <p style="font-size:16px;">Bu @Model.Brand.BrandName @Model.CarModel.ModelName, @Model.Branch.BranchName şubemizde sizleri bekliyor. Modern donanımı ve @Model.FuelType yakıt tipiyle konforlu bir sürüş deneyimi sunar.</p>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <ul class="ul-style-1">
+                                            <li><i class="fa fa-check text-success me-2"></i><strong>Kategori:</strong> @Model.Category.CategoryName</li>
+                                            <li><i class="fa fa-check text-success me-2"></i><strong>Model Yılı:</strong> @Model.Year</li>
+                                            <li><i class="fa fa-check text-success me-2"></i><strong>Kilometre:</strong> @Model.Kilometer.ToString("N0") KM</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="ul-style-1">
+                                            <li><i class="fa fa-check text-success me-2"></i><strong>Plaka:</strong> @Model.PlateNumber</li>
+                                            <li><i class="fa fa-check text-success me-2"></i><strong>Şasi No (VIN):</strong> @Model.VIN</li>
+                                            <li><i class="fa fa-check text-success me-2"></i><strong>Durum:</strong> @(Model.IsAvailable ? "Müsait" : "Kirada")</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="de-price text-center mb-4 p-4 rounded shadow-sm border">
+                                <span class="text-uppercase fw-bold text-muted">Günlük Fiyat</span>
+                                <h2 class="text-primary" style="font-size: 32px; color: #28a745 !important;">@Model.DailyPrice.ToString("C2")</h2>
+                                <p class="text-muted small">Güvence Bedeli: @Model.DepositAmount.ToString("C2")</p>
+
+                                @if (Model.IsAvailable)
+                                {
+                                    <button type="button" class="btn-main w-100 mt-2" data-bs-toggle="modal" data-bs-target="#reservationModal">
+                                        Hemen Rezervasyon Yap
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn w-100 mt-2 btn-secondary" disabled style="cursor:not-allowed">
+                                        Bu Araç Şu An Kirada
+                                    </button>
+                                    <p class="text-danger mt-2 small">Şu an bu araç için yeni rezervasyon kabul edilmemektedir.</p>
+                                }
+                            </div>
+
+                            <div class="de-spec-box p-4 border rounded bg-white shadow-sm">
+                                <h3 class="mb-3">Teknik Detaylar</h3>
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <i class="fa fa-user me-2 text-primary"></i><span>@Model.SeatCount Koltuk</span>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <i class="fa fa-briefcase me-2 text-primary"></i><span>@Model.LuggageCount Bagaj</span>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <i class="fa fa-tint me-2 text-primary"></i><span>@Model.FuelType</span>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <i class="fa fa-map-marker me-2 text-primary"></i><span>@Model.Branch.BranchName</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="modal fade" id="reservationModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="background-color: #1a1a1a; color: white; border: 1px solid #333;">
+                    <div class="modal-header" style="border-bottom: 1px solid #333;">
+                        <h5 class="modal-title">Rezervasyon Formu</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="reservationForm">
+                            <input type="hidden" name="CarId" value="@Model.CarId" />
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label small">Adınız</label>
+                                    <input type="text" name="Name" class="form-control bg-dark text-white border-secondary" required />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label small">Soyadınız</label>
+                                    <input type="text" name="Surname" class="form-control bg-dark text-white border-secondary" required />
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small">E-posta Adresiniz</label>
+                                <input type="email" name="Email" class="form-control bg-dark text-white border-secondary" required />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small">Telefon Numaranız</label>
+                                <input type="text" name="Phone" class="form-control bg-dark text-white border-secondary" placeholder="05XX XXX XX XX" required />
+                            </div>
+                            <button type="submit" class="btn-main w-100 mt-2">Doğrulama Kodu Gönder</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @await Component.InvokeAsync("_LayoutFooterComponentPartial")
+    </div>
+
+    <script src="~/rentaly/js/plugins.js"></script>
+    <script src="~/rentaly/js/designesia.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#reservationForm").submit(function (e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "/_Layout/BookReservation",
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            $("#reservationModal .modal-body").html(`
+                                <div class="text-center">
+                                    <i class="fa fa-paper-plane mb-3 text-success" style="font-size: 40px;"></i>
+                                    <p>E-posta adresinize gönderilen 6 haneli kodu giriniz.</p>
+                                    <form id="verificationForm">
+                                        <input type="hidden" id="resId" value="${response.reservationId}" />
+                                        <input type="text" id="vCode" class="form-control text-center mb-3 bg-dark text-white" placeholder="000000" maxlength="6" style="font-size: 24px; letter-spacing: 5px;" required />
+                                        <button type="submit" class="btn-main w-100">Kodu Doğrula</button>
+                                    </form>
+                                    <div id="verifyError" class="text-danger mt-2"></div>
+                                </div>
+                            `);
+                        } else {
+                            alert(response.message);
+                        }
+                    }
+                });
+            });
+
+            $(document).on("submit", "#verificationForm", function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "/_Layout/ConfirmCode",
+                    data: { reservationId: $("#resId").val(), code: $("#vCode").val() },
+                    success: function (res) {
+                        if (res.success) {
+                            $("#reservationModal .modal-body").html(`
+                                <div class="text-center p-4">
+                                    <i class="fa fa-check-circle text-success mb-3" style="font-size: 50px;"></i>
+                                    <h4>Tebrikler!</h4>
+                                    <p>${res.message}</p>
+                                    <button type="button" class="btn-main w-100" onclick="location.reload()">Kapat</button>
+                                </div>
+                            `);
+                        } else {
+                            $("#verifyError").text(res.message);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

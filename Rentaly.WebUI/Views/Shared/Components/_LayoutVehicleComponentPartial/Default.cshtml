@@ -1,0 +1,230 @@
+﻿@model List<Rentaly.EntityLayer.Entities.Car>
+
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<section class="featured-cars-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Öne Çıkan Araçlar</h2>
+            <div class="slider-navigation-wrapper">
+                <div class="nav-btn btn-prev">
+                    <i class="fa-solid fa-arrow-left-long"></i> 
+                </div>
+                <div class="nav-btn btn-next">
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="swiper car-swiper">
+            <div class="swiper-wrapper">
+                @foreach (var car in Model)
+                {
+                    <div class="swiper-slide">
+                        <div class="car-card">
+                            <div class="car-image">
+                                <img src="@car.ImageUrl" alt="Car Image">
+                                <div class="car-year">@car.Year</div>
+                            </div>
+                            <div class="car-details">
+                                <h3>@car.Brand.BrandName</h3>
+                                <div class="car-specs">
+                                    <span><i class="fas fa-gas-pump"></i> @car.FuelType</span>                                </div>
+                                <hr>
+                                <div class="car-price-info">
+                                    <div class="price-box">
+                                        <small>Günlük</small>
+                                        <strong>@car.DailyPrice.ToString("C")</strong>
+                                    </div>
+                                    <div class="deposit-box">
+                                        <small>Depozito</small>
+                                        <span>@car.DepositAmount.ToString("C")</span>
+                                    </div>
+                                </div>
+                                <a href="/Car/Details/@car.CarId" class="btn-rent">Hemen Kirala</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+<script>
+    const swiper = new Swiper('.car-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: false, // 7 araba olduğu için loop'u kapatabilirsin veya istersen açabilirsin
+        autoplay: false, // OTOMATİK GEÇİŞİ KAPATTIK
+        navigation: {
+            nextEl: '.btn-next',
+            prevEl: '.btn-prev',
+        },
+        breakpoints: {
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 }, // Ekranda aynı anda 3 kart gözükür
+        }
+    });
+</script>
+
+<style>
+    .featured-cars-section {
+        padding: 80px 0;
+        background: #fff;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+    }
+
+    .car-card {
+        background: #fff;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        border: 1px solid #eee;
+        transition: transform 0.3s ease;
+    }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+        }
+
+    .car-image {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+        .car-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .car-year {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: #f30a49;
+        color: #fff;
+        padding: 5px 12px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .car-details {
+        padding: 25px;
+    }
+
+    .car-specs {
+        display: flex;
+        gap: 15px;
+        color: #777;
+        font-size: 14px;
+        margin: 15px 0;
+    }
+
+    .car-price-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .price-box strong {
+        color: #f30a49;
+        font-size: 20px;
+        display: block;
+    }
+
+    .deposit-box span {
+        color: #333;
+        font-weight: 600;
+        display: block;
+    }
+
+    .btn-rent {
+        display: block;
+        text-align: center;
+        background: #111;
+        color: #fff;
+        padding: 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .btn-rent:hover {
+            background: #f30a49;
+            color: #fff;
+        }
+
+    /* Navigasyon Butonları */
+    .swiper-controls {
+        display: flex;
+        gap: 10px;
+    }
+
+    .swiper-button-next-custom, .swiper-button-prev-custom {
+        width: 45px;
+        height: 45px;
+        background: #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .swiper-button-next-custom:hover, .swiper-button-prev-custom:hover {
+            background: #f30a49;
+            color: #fff;
+        }
+
+    .slider-navigation-wrapper {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .nav-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #ffffff;
+        border: 2px solid #e0e0e0;
+        color: #111;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 18px;
+    }
+
+        /* Hover Durumu */
+        .nav-btn:hover {
+            background-color: #f30a49; /* Senin vurgu rengin */
+            border-color: #f30a49;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(243, 10, 73, 0.3);
+        }
+
+        /* Tıklama efekti */
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+</style>

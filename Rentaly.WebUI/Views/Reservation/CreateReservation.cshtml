@@ -1,0 +1,57 @@
+﻿@model CreateReservationDto
+@{
+    ViewData["Title"] = "Yeni Rezervasyon";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="card shadow-sm mx-auto" style="max-width: 900px;">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Yeni Manuel Rezervasyon Oluştur</h5>
+        </div>
+        <div class="card-body p-4">
+            <form method="post">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Müşteri Adı</label>
+                        <input type="text" asp-for="Name" class="form-control" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Müşteri Soyadı</label>
+                        <input type="text" asp-for="Surname" class="form-control" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">E-Posta</label>
+                        <input type="email" asp-for="Email" class="form-control" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Telefon</label>
+                        <input type="text" asp-for="Phone" class="form-control" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Araç ID</label>
+                        <input type="number" asp-for="CarId" class="form-control" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Rezervasyon Durumu</label>
+                        <select asp-for="Status" class="form-select">
+                            <option value="Beklemede">Beklemede</option>
+                            <option value="Onaylandı">Onaylandı</option>
+                            <option value="İptal Edildi">İptal Edildi</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check form-switch mt-2">
+                            <input class="form-check-input" type="checkbox" asp-for="IsEmailVerified">
+                            <label class="form-check-label">E-Posta Doğrulanmış Olarak İşaretle</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-end mt-4">
+                    <a href="/Reservation/ReservationList" class="btn btn-light border">Vazgeç</a>
+                    <button type="submit" class="btn btn-success px-5">Rezervasyonu Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

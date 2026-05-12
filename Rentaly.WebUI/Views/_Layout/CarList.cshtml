@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = null;
+}
+<link href="~/rentaly/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/rentaly/css/style.css" rel="stylesheet" type="text/css" />
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+    @await Component.InvokeAsync("_DefaultHeadComponentPartial")
+
+
+<body>
+    <div id="wrapper">
+
+        <!-- page preloader begin -->
+        <div id="de-preloader"></div>
+        <!-- page preloader close -->
+        <!-- header begin -->
+        @await Component.InvokeAsync("_DefaultHeaderComponentPartial")
+        <!-- header close -->
+        <!-- content begin -->
+        <div class="no-bottom no-top zebra" id="content">
+            <div id="top"></div>
+            @await Component.InvokeAsync("_DefaultFilterComponentPartial")
+        </div>
+        <!-- content close -->
+
+        <a href="#" id="back-to-top"></a>
+
+        <!-- footer begin -->
+        @await Component.InvokeAsync("_LayoutFooterComponentPartial")
+        <!-- footer close -->
+
+    </div>
+
+
+    <!-- Javascript Files
+    ================================================== -->
+    <script src="~/rentaly/js/plugins.js"></script>
+    <script src="~/rentaly/js/designesia.js"></script>
+
+</body>
+
+</html>

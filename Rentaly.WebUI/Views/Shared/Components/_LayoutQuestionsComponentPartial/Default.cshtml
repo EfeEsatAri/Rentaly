@@ -1,0 +1,60 @@
+﻿@model List<Rentaly.EntityLayer.Entities.Questions>
+
+<section id="section-faq">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h2>Sorularınız Mı Var?</h2>
+                <div class="spacer-20"></div>
+            </div>
+        </div>
+
+        <div class="row g-custom-x">
+            @if (Model != null && Model.Any())
+            {
+                var total = Model.Count;
+                var half = (total + 1) / 2; // Soruları iki sütuna dengeli dağıtır
+
+                <!-- Sol Sütun -->
+                <div class="col-md-6 wow fadeInUp">
+                    <div class="accordion secondary">
+                        <div class="accordion-section">
+                            @for (int i = 0; i < half; i++)
+                            {
+                                <div class="accordion-section-title" data-tab="#accordion-@Model[i].QuestionsId">
+                                    @Model[i].Title
+                                </div>
+                                <div class="accordion-section-content" id="accordion-@Model[i].QuestionsId">
+                                    <p>@Model[i].Description</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sağ Sütun -->
+                <div class="col-md-6 wow fadeInUp">
+                    <div class="accordion secondary">
+                        <div class="accordion-section">
+                            @for (int i = half; i < total; i++)
+                            {
+                                <div class="accordion-section-title" data-tab="#accordion-@Model[i].QuestionsId">
+                                    @Model[i].Title
+                                </div>
+                                <div class="accordion-section-content" id="accordion-@Model[i].QuestionsId">
+                                    <p>@Model[i].Description</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <p>Henüz eklenmiş bir soru bulunamadı.</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>

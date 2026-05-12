@@ -1,0 +1,31 @@
+﻿@model CreateCarModelDto
+@{
+    ViewData["Title"] = "Yeni Araç Modeli";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Yeni Araç Modeli Ekle</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Araç Modeli Adı</label>
+                            <input type="text" asp-for="ModelName" class="form-control" placeholder="Örn: Corolla, C-Class, Focus..." required />
+                            <span asp-validation-for="ModelName" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="/Admin/CarModel/Index" class="btn btn-outline-secondary">İptal</a>
+                            <button type="submit" class="btn btn-success px-4">Kaydet</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

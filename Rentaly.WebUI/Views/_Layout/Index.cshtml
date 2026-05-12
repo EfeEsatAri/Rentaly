@@ -1,0 +1,59 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+    @await Component.InvokeAsync("_LayoutHeadComponentPartial")
+
+
+<body onload="initialize()">
+    <div id="wrapper">
+
+        <!-- page preloader begin -->
+        <div id="de-preloader"></div>
+        <!-- page preloader close -->
+        <!-- header begin -->
+        @await Component.InvokeAsync("_LayoutHeaderComponentPartial")
+        <!-- header close -->
+        <!-- content begin -->
+        <div class="no-bottom no-top" id="content">
+            <div id="top"></div>
+            <section id="section-hero" aria-label="section" class="jarallax">
+                <img src="~/rentaly/images/background/1.jpg" class="jarallax-img" alt="">
+                <div class="container">
+                    <div class="row align-items-center">
+                        @await Component.InvokeAsync("_LayoutTypeComponentPartial")
+
+                        @await Component.InvokeAsync("_LayoutStepComponentPartial")
+
+                    </div>
+                </div>
+            </section>
+            @await Component.InvokeAsync("_LayoutBrandComponentPartial")
+            @await Component.InvokeAsync("_LayoutFeaturesComponentPartial")
+            @await Component.InvokeAsync("_LayoutVehicleComponentPartial")
+            @await Component.InvokeAsync("_LayoutCommentsComponentPartial")
+            @await Component.InvokeAsync("_LayoutQuestionsComponentPartial")
+
+        </div>
+        <!-- content close -->
+        <a href="#" id="back-to-top"></a>
+        <!-- footer begin -->
+        @await Component.InvokeAsync("_LayoutFooterComponentPartial")
+        <!-- footer close -->
+    </div>
+    <!-- Javascript Files
+    ================================================== -->
+    <script src="~/rentaly/js/plugins.js"></script>
+    <script src="~/rentaly/js/designesia.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=insert_your_api_key_here&amp;libraries=places&amp;callback=initPlaces" async="" defer=""></script>
+    <!-- Visual Studio Browser Link -->
+    <script type="text/javascript" src="/_vs/browserLink" async="async" id="__browserLink_initializationData" data-requestId="2e637d38fcc84021986594e3976e3c38" data-requestMappingFromServer="false" data-connectUrl="http://localhost:64000/b434ad12b2624c9e81f52d989736ba5b/browserLink"></script>
+    <!-- End Browser Link -->
+    <script src="~/rentaly//_framework/aspnetcore-browser-refresh.js"></script>
+</body>
+</html>

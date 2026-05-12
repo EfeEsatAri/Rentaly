@@ -1,0 +1,42 @@
+﻿@model List<Rentaly.EntityLayer.Entities.Footer>
+<footer class="text-light">
+    <div class="container">
+        @foreach(var item in Model)
+        {
+            <div class="row g-custom-x">
+                <div class="col-lg-4">
+                    <div class="widget">
+                        <h5>Rentaly Hakkında </h5>
+                        <p>@item.About</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="widget">
+                        <h5>İletişim Bilgileri</h5>
+                        <address class="s1">
+                            <span><i class="id-color fa fa-map-marker fa-lg"></i>@item.Location</span>
+                            <span><i class="id-color fa fa-phone fa-lg"></i>@item.Phone</span>
+                            <span><i class="id-color fa fa-envelope-o fa-lg"></i><a href="mailto:contact@example.com">@item.Email</a></span>
+                        </address>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <h5>Quick Links</h5>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="widget">
+                                <ul>
+                                    <li><a href="/_Layout/Index">Ana Sayfa</a></li>
+                                    <li><a href="/Car/CarList">Araba Listesi</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>              
+            </div>
+        }
+
+    </div>
+</footer>

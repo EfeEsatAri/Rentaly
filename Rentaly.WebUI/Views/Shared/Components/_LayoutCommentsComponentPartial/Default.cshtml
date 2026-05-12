@@ -1,0 +1,68 @@
+﻿@model List<Rentaly.EntityLayer.Entities.Comment>
+
+<section id="section-testimonials" class="no-top no-bottom py-5" style="background-color: #f9f9f9;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center mb-5">
+                <h2>Müşteri Yorumları</h2>
+                <div class="small-border id-color"></div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4">
+                    <div class="de-image-text testimonial-card">
+                        <div class="d-text">
+                            <div class="d-quote id-color"><i class="fa fa-quote-right"></i></div>
+                            <h4>@item.Title</h4>
+                            <blockquote>
+                                @item.Description
+                                <span class="by">@item.NameSurname</span>
+                            </blockquote>
+                        </div>
+                        <div class="testimonial-img-wrapper">
+                            <img src="@item.ImageUrl" class="img-fluid" alt="@item.NameSurname">
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    /* ... diğer stillerin aynı kalabilir ... */
+
+    .testimonial-img-wrapper {
+        /* Boyutu 250px'den 500px'e çıkardık */
+        height: 600px;
+        overflow: hidden;
+        border-top: 1px solid #eee; /* Yazı alanı ile resim arasına hafif bir çizgi */
+    }
+
+        .testimonial-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Uzunluk arttığı için resmin merkezini odaklayarak doldurur */
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+    /* Kartın genel yapısını resimle uyumlu hale getirelim */
+    .testimonial-card {
+        background: #ffffff;
+        border-radius: 15px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        height: 100%;
+    }
+
+        /* Yazı alanını biraz daha daraltıp resmi ön plana çıkarabiliriz */
+        .testimonial-card .d-text {
+            padding: 40px 30px;
+            min-height: 250px; /* Yazıların olduğu kısmın sabit durması için */
+        }
+</style>

@@ -1,0 +1,45 @@
+﻿@model UpdateFooterDto
+@{
+    ViewData["Title"] = "Footer Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="card shadow-sm mx-auto" style="max-width: 900px;">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">Footer Bilgilerini Düzenle</h5>
+        </div>
+        <div class="card-body p-4">
+            <form method="post">
+                <input type="hidden" asp-for="FooterId" />
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Şirket Hakkında (Footer Özeti)</label>
+                    <textarea asp-for="About" rows="5" class="form-control"></textarea>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold text-success"><i class="fas fa-phone me-1"></i>Telefon</label>
+                        <input type="text" asp-for="Phone" class="form-control" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold text-primary"><i class="fas fa-envelope me-1"></i>E-Posta</label>
+                        <input type="email" asp-for="Email" class="form-control" />
+                    </div>
+                    <div class="col-12 mt-3">
+                        <label class="form-label fw-bold text-danger"><i class="fas fa-map-marker-alt me-1"></i>Adres Bilgisi</label>
+                        <input type="text" asp-for="Location" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4 border-top pt-3">
+                    <a href="/Footer/FooterList" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i>Geri Dön
+                    </a>
+                    <button type="submit" class="btn btn-info text-white px-5 fw-bold">Değişiklikleri Uygula</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

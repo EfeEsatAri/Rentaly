@@ -1,0 +1,112 @@
+﻿@model List<Rentaly.EntityLayer.Entities.Brand>
+
+<section aria-label="section" class="brand-slider-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="brand-slider-container">
+                    <div class="brand-slider-track">
+
+                        @foreach (var item in Model)
+                        {
+                            <div class="brand-item">
+                                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                {
+                                    <img src="@item.ImageUrl" alt="@item.BrandName" title="@item.BrandName" />
+                                }
+                                else
+                                {
+                                    <span class="brand-name">@item.BrandName</span>
+                                }
+                            </div>
+                        }
+
+                        @* Sonsuz döngü için ikinci kopya *@
+                        @foreach (var item in Model)
+                        {
+                            <div class="brand-item">
+                                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                {
+                                    <img src="@item.ImageUrl" alt="@item.BrandName" title="@item.BrandName" />
+                                }
+                                else
+                                {
+                                    <span class="brand-name">@item.BrandName</span>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* ... (brand-slider-section ve brand-slider-container kısımları aynı kalabilir) ... */
+    .brand-slider-section {
+        background-color: #f8f9fa;
+        padding: 60px 0; /* padding'i biraz artırarak logolara nefes alma alanı bırakalım */
+        overflow: hidden;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+    }
+
+    .brand-slider-container {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .brand-slider-track {
+        display: flex;
+        /* DİKKAT: Kutuyu büyüttüğümüz için buradaki hesaplamayı da güncelledik (300px) */
+        width: calc(300px * @(Model.Count * 2));
+        animation: scroll 18s linear infinite; /* Logolar büyüdüğü için hızı hafifçe 18s'e çektim, çok hızlı kaçmasınlar */
+    }
+
+    .brand-item {
+        /* 1. DEĞİŞİKLİK: Kutuyu genişlettik (250px -> 300px) */
+        width: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        padding: 0 25px; /* Yanlardan biraz daha boşluk */
+    }
+
+        .brand-item img {
+            /* 2. DEĞİŞİKLİK: Logonun kendisini büyüttük (55px -> 80px) */
+            max-height: 80px;
+            max-width: 200px; /* Çok geniş logolar için önlem (örn: Mercedes-Benz yazılıysa) */
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            opacity: 0.9; /* Açık temada biraz daha belirgin olsunlar */
+            filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.06));
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Üzerine gelince efekti de biraz daha belirginleştirelim */
+        .brand-item:hover img {
+            opacity: 1;
+            transform: scale(1.1); /* Zaten büyük olduğu için çok devasa büyümesin, %10 yeterli */
+            filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.1));
+        }
+
+    /* Animasyon kısmındaki genişlik hesabını da (300px) olarak güncelledik */
+    @@keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(calc(-300px * @Model.Count ));
+        }
+    }
+
+    .brand-slider-container:hover .brand-slider-track {
+        animation-play-state: paused;
+    }
+</style>

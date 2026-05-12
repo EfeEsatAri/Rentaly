@@ -1,0 +1,29 @@
+﻿@model UpdateStepDto
+@{
+    ViewData["Title"] = "UpdateStep";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container py-5">
+    <div class="card shadow-sm border-0 mx-auto" style="max-width: 600px;">
+        <div class="card-body p-4 text-dark">
+            <h5 class="fw-bold mb-4">Adımı Güncelle</h5>
+            <form method="post">
+                <input type="hidden" asp-for="StepId" />
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Aşama Başlığı</label>
+                    <input type="text" asp-for="Title" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Açıklama</label>
+                    <textarea asp-for="Description" rows="5" class="form-control"></textarea>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a href="/Step/StepList" class="btn btn-light border">Geri Dön</a>
+                    <button type="submit" class="btn btn-warning px-4">Değişiklikleri Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

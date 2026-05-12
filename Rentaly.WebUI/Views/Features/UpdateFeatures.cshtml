@@ -1,0 +1,42 @@
+﻿@model UpdateFeaturesDto
+@{
+    ViewData["Title"] = "Özelliği Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-warning py-3">
+                    <h5 class="mb-0 text-dark">Özelliği Düzenle</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post">
+                        <input type="hidden" asp-for="FeaturesId" />
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Başlık</label>
+                            <input type="text" asp-for="Title" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">İkon (Mevcut: <i class="@Model.Icon mx-2 text-primary"></i>)</label>
+                            <input type="text" asp-for="Icon" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Açıklama</label>
+                            <textarea asp-for="Description" rows="4" class="form-control"></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-between pt-2">
+                            <a href="/Features/FeaturesList" class="btn btn-outline-secondary px-4">Geri Dön</a>
+                            <button type="submit" class="btn btn-warning px-5 fw-bold">Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
